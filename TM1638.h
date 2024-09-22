@@ -2,6 +2,7 @@
 #define TM1638_H
 
 #include "mbed.h"
+#include <cstdint>
 
 class TM1638 {
 public:
@@ -9,9 +10,11 @@ public:
     void init();
     void setBrightness(uint8_t brightness);
     void displayDigit(uint8_t position, uint8_t data);
+    void displayLed  (uint8_t led, bool state);
     void displayNumber(uint32_t number);
     void clearDisplay();
-    uint8_t readKeys();
+    void clearLeds();
+    uint8_t readKeys(); //verificar 
 
 private:
     void sendCommand(uint8_t command);
