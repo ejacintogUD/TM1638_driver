@@ -5,6 +5,7 @@
 
 #include "mbed.h"
 #include "TM1638.h"
+#include <ctime>
 
 // Define los pines que usarás para conectar el TM1638
 #define STB_PIN D10  // Pin de STB (Strobe)
@@ -30,8 +31,9 @@ int main() {
     
     // Pruebo que funcione
     tm1638.displayNumber(12345678); // Muestra un número en el display
-    wait_us(2e6);
+    wait_us(5e6);
     tm1638.clearDisplay();          // Limpia el display
+    tm1638.clearLeds();             //limpia los leds
 
     //Inicializo variables 
 
@@ -42,7 +44,7 @@ int main() {
          {
              
              tm1638.displayNumber(conteo++);
-             ThisThread::sleep_for(500ms);
+             ThisThread::sleep_for(1s);
         
         }
        
@@ -57,7 +59,10 @@ void leer_botones(void)
         if (keys) {
             // Procesa las teclas presionadas
             printf("Keys pressed: %02X\n", keys);
+            tm1638.displayLed(keys-1, true);
         }
+        else tm1638.clearLeds();
+       
         ThisThread::sleep_for(100ms);
     }
 }
