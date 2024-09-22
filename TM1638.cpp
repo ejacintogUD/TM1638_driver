@@ -15,7 +15,7 @@ void TM1638::setBrightness(uint8_t brightness) {
 }
 
 void TM1638::displayDigit(uint8_t position, uint8_t data) {
-    sendData(position << 1, data);
+    sendData(position << 1, digitToSegment[data]);
 }
 
 void TM1638::displayLed  (uint8_t led, bool state){
@@ -28,7 +28,7 @@ void TM1638::displayLed  (uint8_t led, bool state){
 void TM1638::displayNumber(uint32_t number) {
     for (int i = 0; i < 8; i++) {
         digit[i] = number % 10;
-        displayDigit(i, digitToSegment[digit[7-i]]);
+        displayDigit(i, digit[7-i]);
         number /= 10;
     }
 }
